@@ -1,0 +1,78 @@
+#line 1 "D:\\Arduino Sketchs\\keypad_rgb\\.vscode\\c_cpp_properties.json"
+{
+  "configurations": [
+    {
+      "name": "Arduino",
+      "includePath": [
+        "C:\\Users\\Shree\\Documents\\Arduino\\libraries\\libraries/**",
+        "C:\\Users\\Shree\\Documents\\Arduino\\keypad_rgb/**",
+        "C:\\Users\\Shree\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32-arduino-libs\\idf-release_v5.5-07e9bf49-v1\\esp32\\include/**"
+      ],
+      "forcedInclude": [],
+      "compilerPath": "C:\\Users\\Shree\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp-x32\\2507/bin/xtensa-esp32-elf-g++",
+      "compilerArgs": [
+        "C:\\Users\\Shree\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp-x32\\2507/bin/xtensa-esp32-elf-g++",
+        "-MMD",
+        "-c",
+        "@C:\\Users\\Shree\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32-arduino-libs\\idf-release_v5.5-07e9bf49-v1\\esp32/flags/cpp_flags",
+        "-w",
+        "-Og",
+        "-g3",
+        "-Werror=return-type",
+        "-DF_CPU=240000000L",
+        "-DARDUINO=10607",
+        "-DARDUINO_ESP32_DEV",
+        "-DARDUINO_ARCH_ESP32",
+        "-DARDUINO_BOARD=\"ESP32_DEV\"",
+        "-DARDUINO_VARIANT=\"esp32\"",
+        "-DARDUINO_PARTITION_default",
+        "-DARDUINO_HOST_OS=\"windows\"",
+        "-DARDUINO_FQBN=\"esp32:esp32:esp32:UploadSpeed=921600,CPUFreq=240,FlashFreq=80,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default\"",
+        "-DESP32=ESP32",
+        "-DCORE_DEBUG_LEVEL=0",
+        "-DARDUINO_RUNNING_CORE=1",
+        "-DARDUINO_EVENT_RUNNING_CORE=1",
+        "-DARDUINO_USB_CDC_ON_BOOT=0",
+        "@C:\\Users\\Shree\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32-arduino-libs\\idf-release_v5.5-07e9bf49-v1\\esp32/flags/defines",
+        "-IC:\\Users\\Shree\\Documents\\Arduino\\keypad_rgb",
+        "-iprefix",
+        "C:\\Users\\Shree\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32-arduino-libs\\idf-release_v5.5-07e9bf49-v1\\esp32/include/",
+        "@C:\\Users\\Shree\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32-arduino-libs\\idf-release_v5.5-07e9bf49-v1\\esp32/flags/includes",
+        "-IC:\\Users\\Shree\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32-arduino-libs\\idf-release_v5.5-07e9bf49-v1\\esp32/qio_qspi/include",
+        "-IC:\\Users\\Shree\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.2\\cores\\esp32",
+        "-IC:\\Users\\Shree\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.2\\variants\\esp32",
+        "-IC:\\Users\\Shree\\Documents\\Arduino\\libraries\\libraries\\Keypad\\src",
+        "@C:\\Users\\Shree\\Documents\\Arduino\\keypad_rgb\\build/build_opt.h",
+        "@C:\\Users\\Shree\\Documents\\Arduino\\keypad_rgb\\build/file_opts",
+        "C:\\Users\\Shree\\Documents\\Arduino\\keypad_rgb\\build\\sketch\\keypad_rgb.ino.cpp",
+        "-o",
+        "C:\\Users\\Shree\\Documents\\Arduino\\keypad_rgb\\build\\sketch\\keypad_rgb.ino.cpp.o"
+      ],
+      "defines": [
+        "F_CPU=240000000L",
+        "ARDUINO=10607",
+        "ARDUINO_ESP32_DEV",
+        "ARDUINO_ARCH_ESP32",
+        "ARDUINO_BOARD=\"ESP32_DEV\"",
+        "ARDUINO_VARIANT=\"esp32\"",
+        "ARDUINO_PARTITION_default",
+        "ARDUINO_HOST_OS=\"windows\"",
+        "ARDUINO_FQBN=\"esp32:esp32:esp32:UploadSpeed=921600,CPUFreq=240,FlashFreq=80,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default\"",
+        "ESP32=ESP32",
+        "CORE_DEBUG_LEVEL=0",
+        "ARDUINO_RUNNING_CORE=1",
+        "ARDUINO_EVENT_RUNNING_CORE=1",
+        "ARDUINO_USB_CDC_ON_BOOT=0",
+        "ARDUINO_BOARD=\\\"ESP32_DEV\\\"\"",
+        "ARDUINO_VARIANT=\\\"esp32\\\"\"",
+        "ARDUINO_HOST_OS=\\\"windows\\\"\"",
+        "ARDUINO_FQBN=\\\"esp32:esp32:esp32:UploadSpeed=921600,CPUFreq=240,FlashFreq=80,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default\\\"\"",
+        "ARDUINO_CORE_BUILD",
+        "USBCON"
+      ],
+      "cStandard": "c17",
+      "cppStandard": "c++17"
+    }
+  ],
+  "version": 4
+}
