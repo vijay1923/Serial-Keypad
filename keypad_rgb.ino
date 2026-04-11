@@ -2,7 +2,7 @@
 #include <Keypad.h>
 
 #define LED 23
-#define DEBOUNCE_TIME 500 
+#define DEBOUNCE_TIME 100 
 
 char keys[4][3] =
 {
@@ -25,9 +25,9 @@ bool keyHeld = false;
 void setup()
 {
     Serial.begin(115200);
-  //  Serial1.begin(9600, SERIAL_8N1, 16, 17);
+    Serial1.begin(9600, SERIAL_8N1, 16, 17);
     pinMode(LED, OUTPUT);
-    Serial.println("Welcome : Serial Keypad");
+    Serial.println("Welcome ESP32 Dev Module : Serial Keypad");
 }
 
 void loop()
@@ -49,7 +49,7 @@ void loop()
             {
                 Serial.println("\nRestarting ESP32\n");
                 delay(300);
-              //  ESP.restart();
+                ESP.restart();
             }
         }
     }
