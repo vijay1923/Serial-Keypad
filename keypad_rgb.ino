@@ -2,18 +2,25 @@
 #include <Keypad.h>
 
 #define LED 23
-#define DEBOUNCE_TIME 100 
+#define DEBOUNCE_TIME 200 
 
 char keys[4][3] =
 {
     {'1', '2', '3'},
-    {'4', '5', '6'},
+    {'4', '5', '6'},  
     {'7', '8', '9'},
-    {0x2A, '0', 0x0A}  
+    {0x2A,'0', 0x0A}  
 };
 
-byte pin_rows[4] = {32, 33, 25, 26};
-byte pin_column[3] = {27, 14, 12};
+
+byte pin_rows[4] = {32, 33, 25, 26}; 
+byte pin_column[3] = {21,18,19};
+
+
+// byte pin_rows[4] = {21,19,18,32};    // for 4 * 4
+// byte pin_column[4] = {33,25,26,21};
+
+
 
 Keypad keypad = Keypad(makeKeymap(keys), pin_rows, pin_column, 4, 3);
 
@@ -25,9 +32,13 @@ bool keyHeld = false;
 void setup()
 {
     Serial.begin(115200);
-    Serial1.begin(9600, SERIAL_8N1, 16, 17);
+   // delay(100); 
+    Serial1.begin(9600, SERIAL_8N1, 0, 4);  // for TX/RX pins (GPIO4 for TX, GPIO0 for RX)
+   //  Serial1.begin(9600, SERIAL_8N1, 16, 17);  // for TX/RX pins (GPIO16 for TX, GPIO17 for RX)
+  //  delay(100); 
     pinMode(LED, OUTPUT);
     Serial.println("Welcome ESP32 Dev Module : Serial Keypad");
+    Serial1.println("Welcome ESP32 Dev Module : Serial RS232");
 }
 
 void loop()
@@ -41,14 +52,22 @@ void loop()
         {
             keyHeld = true;
             lastPressTime = now;
-
+            
             Serial.print(key);
             Serial1.print(key);
+
+            if(Serial1.available())
+            {
+                char incoming = Serial1.read();
+                Serial.print(" (Echoed back: ");
+                Serial.print(incoming);
+                Serial.println(")");
+            }
 
             if (key == 0x0A)
             {
                 Serial.println("\nRestarting ESP32\n");
-                delay(300);
+              //  delay(300);
                 ESP.restart();
             }
         }
@@ -68,3 +87,4 @@ void loop()
         digitalWrite(LED, ledState);  
     }
 }
+
