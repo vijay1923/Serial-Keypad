@@ -1,81 +1,85 @@
-# 🔢 Serial Keypad
+# 🔢 ESP32 Keypad to Serial1
 
-This project allows you to connect a **4x3 matrix keypad** to an **ESP32** and send the pressed key values over **UART 16(RX),17(TX)** to another device.  
-It includes **LED feedback**, **debounce handling (500 ms)**, **long-press prevention**, and an **auto-restart feature** when the **Enter key** or **EN push button** is pressed.
+This sketch reads a **4x3 matrix keypad** on an ESP32 and forwards key presses to:
 
----
+- `Serial` (USB debug monitor at 115200)
+- `Serial1` (UART at 9600 baud, TX=`GPIO17`, RX=`GPIO16`)
 
-## ⚙️ Features
-
-- ✅ Reads input from a **4x3 matrix keypad**
-- ✅ Sends key values to:
-  - **Serial Monitor (USB)**
-  - **Serial1 (UART TX = 17, RX = 16)** for external communication
-- ✅ LED (**GPIO 23**) stays ON while a key is pressed  
-- ✅ Prevents repeated key input during long press  
-- ✅ Debounce time of **500 ms**
-- ✅ **Auto-restarts** ESP32 when:
-  - The **Enter key** (`0x0A`) is pressed  
-  - The **EN push button** is pressed (hardware reset)
-- ✅ **Delete key** (`0x2A`) reserved for **backspace**
+It also drives an LED on `GPIO23` for status feedback.
 
 ---
 
-## 🧰 Hardware Connections
+## ⚙️ Current behavior (from `keypad_rgb.ino`)
 
-| Component           | ESP32 Pin | Description                     |
-|---------------------|-----------|---------------------------------|
-| R1 (Row 1)          | GPIO 32   | Keypad row 1                    |
-| R2 (Row 2)          | GPIO 33   | Keypad row 2                    |
-| R3 (Row 3)          | GPIO 25   | Keypad row 3                    |
-| R4 (Row 4)          | GPIO 26   | Keypad row 4                    |
-| C1 (Column 1)       | GPIO 27   | Keypad column 1                 |
-| C2 (Column 2)       | GPIO 14   | Keypad column 2                 |
-| C3 (Column 3)       | GPIO 12   | Keypad column 3                 |
-| LED                 | GPIO 23   | LED feedback                    |
-| UART TX             | GPIO 17   | Transmit to external device     |
-| UART RX             | GPIO 16   | Receive from external device    |
-| EN Pin              | EN PIN    | Connected to push button for reset |
-
----
-## 🧩 Components Used
-
-- **ESP32 Dev Module**
-- **4x3 Matrix Keypad** with nameplate for keys
-- **LED**
-- **Push button** (connected to EN pin)
-- **MAX232N 16-pin IC**
-- **5 × 104 Capacitors**
-- **Solenoid 4-pin male connector**
-- **Enclosure box:** 160 mm × 100 mm × 85 mm
-- **2 screws** for PCB  mounting
-- **Acrylic sheet**
-- **Connectors:**
-  - 1 × 4-pin connector PCB Mounted
-  - 1 × 8-pin connector PCB Mounted
-  - 2 × 2-pin connectors PCB Mounted
-- **wires:**
-  - 1 × 4-wire
-  - 1 × 8-wire
-  - 2 × 2-wire
-
-## 🔌 Key Mapping
-
-| Key              | Description                                 |
-|------------------|---------------------------------------------|
-| `1–9`, `0`       | Standard numeric keys                       |
-| `*` (`0x2A`)     | Delete key (Backspace)                      |
-| `Enter` (`0x0A`) | Triggers ESP32 restart                      |
+- Reads keypad events using the `Keypad` library.
+- Accepts one key press per press/release cycle (prevents repeats while held).
+- Applies software debounce: **200 ms**.
+- On valid key press:
+  - Sends key char to `Serial` and `Serial1`.
+  - LED stays **ON** while key is considered held.
+- When no key is held:
+  - LED blinks every **200 ms**.
+- If key is `Enter` (`0x0A`), the ESP32 restarts with `ESP.restart()`.
 
 ---
 
-## 🖲️ Manual Reset
+## 🔌 Wiring used in this sketch
 
-- The **EN pin** is connected to a **momentary push button**.  
-- When pressed, it **resets/restarts the ESP32** hardware — similar to     
-  pressing the onboard reset button.  
-- This provides a **quick manual way** to restart the system during   
-  testing or deployment.
+### Keypad pins
+
+| Keypad line | ESP32 pin |
+|-------------|-----------|
+| Row 1       | GPIO 21   |
+| Row 2       | GPIO 19   |
+| Row 3       | GPIO 18   |
+| Row 4       | GPIO 32   |
+| Column 1    | GPIO 33   |
+| Column 2    | GPIO 25   |
+| Column 3    | GPIO 26   |
+| Column 4    | GPIO 21   |
+
+### Other signals
+
+| Signal   | ESP32 pin |
+|----------|-----------|
+| LED      | GPIO 23   |
+| UART TX1 | GPIO 17   |
+| UART RX1 | GPIO 16   |
+
+---
+
+## 🧩 Key map
+
+The configured 4x3 layout is:
+
+| Row\Col | C1  | C2   | C3    |
+|---------|-----|------|-------|
+| R1      | `1` | `2`  | `3`   |
+| R2      | `4` | `5`  | `6`   |
+| R3      | `7` | `8`  | `9`   |
+| R4      | `*` | `0`  |`Enter`|
+
+> Note: In this code, `*` is transmitted like any other key (no special backspace logic implemented yet).
+
+---
+
+## Components used
+- ESP32 development board (e.g., ESP32 DevKitC)
+- 4x4 matrix keypad (e.g., KY-016)
+- LED (optional, for status indication)
+- TTL to RS232 Module (for connecting `Serial1` to a PC or other device)
+
+## 🖲️ Reset notes
+
+- **Software reset:** pressing `Enter` triggers `ESP.restart()`.
+- **Hardware reset:** pressing the ESP32 **EN** button resets the board at hardware level.
+
+---
+
+## 📚 Dependencies
+
+- Arduino core for ESP32
+- `Keypad` library (`#include <Keypad.h>`)
 
 ---
 
