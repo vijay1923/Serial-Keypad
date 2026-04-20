@@ -1,11 +1,11 @@
-# 🔢 ESP32 Keypad to Serial / Serial1
+# 🔢 ESP32 Keypad to Serial / Serial1 — v2.0
 
 This sketch reads a **4x3 matrix keypad** on an ESP32 and forwards key presses to:
 
-- `Serial` (USB debug monitor at 115200)
-- `Serial1` (UART at 9600 baud, TX=`GPIO4`, RX=`GPIO0`)
+- `Serial` (USB debug monitor at **115200 baud**)
+- `Serial1` (UART at **9600 baud**, TX=`GPIO4`, RX=`GPIO0`) — added in v2.0
 
-It also drives an LED on `GPIO23` for status feedback.
+It also drives an onboard LED on `GPIO2` for status feedback.
 
 ---
 
@@ -15,12 +15,12 @@ It also drives an LED on `GPIO23` for status feedback.
 - Uses one key press per press/release cycle (`keyHeld` logic prevents repeats while held).
 - Applies software debounce: **200 ms**.
 - On valid key press:
-  - Sends key character to `Serial` and `Serial1`.
+  - Sends key character to both `Serial` and `Serial1`.
   - If data is available on `Serial1`, reads one byte and prints it to `Serial` as echoed feedback.
-  - LED stays **ON** while key is considered held.
+  - LED stays **ON** while the key is considered held.
 - When no key is held:
   - LED blinks every **200 ms**.
-- If key is `0x0A` (Enter), the ESP32 restarts with `ESP.restart()`.
+- Software restart via `ESP.restart()` is **disabled** (commented out).
 
 ---
 
@@ -42,7 +42,7 @@ It also drives an LED on `GPIO23` for status feedback.
 
 | Signal   | ESP32 pin |
 |----------|-----------|
-| LED      | GPIO 23   |
+| LED      | GPIO 2 (onboard) |
 | UART TX1 | GPIO 4    |
 | UART RX1 | GPIO 0    |
 
@@ -59,7 +59,7 @@ The configured 4x3 layout is:
 | R1      | `1` | `2` | `3`     |
 | R2      | `4` | `5` | `6`     |
 | R3      | `7` | `8` | `9`     |
-| R4      | `*` | `0` | `0x0A`  |
+| R4      | `*` | `0` | `Enter (0x0A)` |
 
 ---
 
@@ -67,15 +67,15 @@ The configured 4x3 layout is:
 
 - ESP32 development board (e.g., ESP32 DevKitC)
 - 4x3 matrix keypad
-- LED (optional, for status indication)
+- Onboard LED on GPIO 2 (no external LED required)
 - UART/RS232 interface module (optional, if using `Serial1` externally)
 
 ---
 
 ## 🖲️ Reset notes
 
-- **Software reset:** pressing the key mapped to `0x0A` triggers `ESP.restart()`.
-- **Hardware reset:** pressing the ESP32 **EN** button resets the board.
+- **Software reset:** `ESP.restart()` on `0x0A` key press is currently **commented out**.
+- **Hardware reset:** press the ESP32 **EN** button to reset the board.
 
 ---
 
@@ -83,6 +83,19 @@ The configured 4x3 layout is:
 
 - Arduino core for ESP32
 - `Keypad` library (`#include <Keypad.h>`)
+
+---
+
+## 📝 Changelog
+
+### v2.0
+- Added `Serial1` output (TX=GPIO4, RX=GPIO0) alongside `Serial` debug output.
+- Added `Serial1` echo-back: reads and prints any byte received on `Serial1`.
+- LED pin corrected to GPIO 2 (onboard LED).
+- Software reset on `Enter` key disabled (commented out).
+
+### v1.0
+- Initial release: 4x3 keypad reading with `Serial` debug output and LED blink status.
 
 ---
 
