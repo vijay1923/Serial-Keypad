@@ -45,6 +45,7 @@ It also drives an onboard LED on `GPIO2` for status feedback.
 | LED      | GPIO 2 (onboard) |
 | UART TX1 | GPIO 4    |
 | UART RX1 | GPIO 0    |
+| Reset    | EN        |
 
 > Note: Alternate UART/keypad pin mappings are present in comments inside the sketch but are currently disabled.
 
